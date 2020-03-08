@@ -1,0 +1,48 @@
+Notes
+Probability Metrics
+Classification Predictive modeling involves predicting a class label for an example
+
+On some problems a specific class label is not required and instead the probability of being part of particular class is given. 
+Probability metrics are those designed to quantify the skill of a classifier using predicted probability instead of crisp class labels. 
+They provide a single value that can be used to compare the different models based on how well the probabilities match expected probabilities.
+
+In practice the data set will not have target probabilities byt class labels. 
+
+For example a two class problem (binary) will have class labels 0 for negative and 1 for positive. When the class label 0 then probability of the class labels of 0 and 1 will be 1 and 0.
+When the class labe is 1 the probability of the class labels 0 and 1 will be 0 and 1.
+
+Example with class=0: P(class=0)=1, P(class=1)=0
+Example with class=1: P(class=0)=0, P(class=1)=1
+
+adding a third class
+Example with class=0: P(class=0)=1, P(class=1)=0, P(class=2)=0
+Example with class=1: P(class=0)=0, P(class=1)=1, P(class=2)=0
+Example with class=2: P(class=0)=0, P(class=1)=0, P(class=2)=1
+
+This simplified example means we only need to know the probability of the example belonging to class 1 to represent the probability of the binary classification (Bernoulli distribution)
+Example with class=0: P(class=1)=0
+Example with class=1: P(class=1)=1
+
+two populare metrics for evaluating predicted probabilities are Log Loss and Brier Score
+
+Log Loss for Imbalanced Classification
+Calculates the negative log likelihood for probability predictions made by the binary classification model.
+
+LogLoss = -(P(class=0)*log(P(class=0))+(P(class=1))*log(P(class-1)))
+Best possible logLoss is 0 and positive values goe to infinity getting worse as they get higher
+
+If you are just predicting the positive cvlass then you can use 
+LogLoss = -((1-y)*log(1-yhat)+y*log(yhat))
+AverageLogLoss = 1/N* sum i in N -((1-y)*log(1-yhat)+y*log(yhat))
+
+Brier score calculates the mean squared error between predicted probabilities and expected values
+erro score is always between 0 and 1 where a model with perfect skill will have a score of 0
+
+calculated for positive predicted probabilities (yhat) compared to expected (y)
+
+BrierScore = 1/N sum i to N (yhat_i - y_i)^2
+
+it takes the probabilities of the positive class only and returns an average score.
+
+
+

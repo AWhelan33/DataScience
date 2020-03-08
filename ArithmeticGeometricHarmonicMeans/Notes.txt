@@ -1,0 +1,56 @@
+Notes on average, geometric and harmonic means 
+Average - the central tendency - single number representing the most common value for a list of numbers
+
+Highest probability from the probability distribution that describes all positive values a variable may have.
+
+Mean, mode and median are all averages. 
+
+Mean is different to the median and mode as it is calculated 
+There are three types of mean calculation
+Arithmetic mean
+Geometric mean
+Harmonic mean
+
+Arithmetic mean - Sum of the values divided by total number of values (N)
+ArithmeticMean = (x1 + x2 + ...+N) / N
+A more convenient way to calculate it is
+ArithmeticMean = (1/N) * (x1 + x2 + ...xN)
+
+it is appropriate when all values in the data have the same units of measure and values can be positive, negative or zero
+
+Arithmetic mean can be easily distorted if there are a few outliers or for data with no standatd distribution (eg multiple peaks)
+
+it is useful in machine learning when summarizing a variable and when the data has a gaussian or gaussian like distribution
+
+
+Geometric mean 
+Calculated as the N-th root of the product of all values, where N is the number of values
+
+GeometricMean = N-root(x1 *x2*...*xN)
+
+So for 2 values the square root of the product of the 2 numbers is the geometric mean. For 3 the cube roote of the product of the 3 numbers etc.
+
+Appropriate when the data contains values of different units of measure eg height, dollars and miles in the same dataset.
+It does not accept negative or zero values. 
+
+One common example of geometric mean in machine learning is the calculation of the G-Mean metric that is a model evaluation metric to calculate the geometric mean of the sensitivity and specificity metrics.
+
+Harmonic Mean 
+Calculated as the number of values N divided by the sum of the reciprocal of the values (1 over each value)
+HarmonicMean = N/(1/x1 + 1/x2 + ...1/xN)
+If there are just two values this can be simplified to
+(2*x1*x2)/(x1 +x2)
+
+It is appropriate if the data is comprised of rates.
+Rate is ratio between two quantities with different measures (eg speed, acceleration, frequenecy)
+Does not take negative or zero values
+Common use in machine learning is the F-Measure (F1 or FBeta)
+
+
+Which mean to use
+
+If the values have the same unit use the Arithmetic mean
+If the values have differing units use the Geometric mean
+If the values are rates use the harmonic mean
+
+But for negative or 0 values you cannot use geometric or harmonic mean.

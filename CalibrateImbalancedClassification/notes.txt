@@ -1,0 +1,38 @@
+Notes
+Calibration of metrics is vital for making sure you are getting the best picture of a class of data
+Calibrated probabilities - Match the true likeligood of events
+Uncalibrated probabilities - can be over confident or under confident in their predictions
+
+There are 2 main causes for uncalibrated probabilities 
+- Algorithms - not trained using a probabilistic framework
+- Biases in training data
+
+Many Algorithms don't produce calibrated probabilities because to predict calibrated probabilities a model must be trained under a probabilistic framework suc has maximum likelihood estimation.
+Some examples of algorigthms which do provide calibrated probabilities:
+- Logistic regression 
+- Linear discriminant analysis
+- Naive Bayes
+- Artificial neural networks
+
+Many algorigthms predict a probability like score or a class label and must be coerced in order to produce a probability-like score. They often need their probabilities calibrating before use:
+- Support vector machines
+- decision trees
+- Ensembles of decision trees (bagging, random forest, gradient boosting)
+- k-nearest neighours
+
+Probabilities are calibrated by rescaling to match the distribution in the training data. 
+Two main techniques for scaling predicted probabilities 
+Platt Scaling - Logistic regression model to transform probabilities
+Isotonic regression - Weighted least squares regression model to transform probabilities
+
+When splitting the training models be sure to work out how many of your classes there would be. for example with 1000 samples and 900 of those being positive if you split the training to be on 600 samples and the calibrating on 200 then only 100 total samples are tested. Of these a very small numebr will be the negative ones. 
+
+decision trees
+Another highly effective technique which does not naturally produce probabilities instead class labels are predicted directly and probability like scores can be estimated basedon examples in a training set which fall into the leaf of the tree. 
+As such they should be calibrated before used to select a model.
+
+Often a good idea to use a suite of calibration method on your model to figure out which works best on your data and tune them together. 
+
+K Nearest neigbor is another nonlinear algorigthm which predicts class label directly and must be modified to give a probability like score using the distributopn of class labels in the neighbourhood.
+
+

@@ -1,0 +1,124 @@
+Evaluation metrics
+These quantify the performance of predictive models
+They involve training a model on a data set, using the model to make predictions on the holdout dataset and then comparing the predictions with the expected valus in the holdout dataset
+Selecting a model is guided by evaluation metrics. You use different models, evaluate how well they predict and then determine which to use based on the evaluation metrics
+Standard metrics - Classification accuracy or classification error.
+These work well on most problems and they are widely adopted. But as with all models they make some assumptions so it is important to pick a metric which captures what your model is trying to achieve. 
+Standard metrics become unreliable when there is a skew in the data class distribution and can even be misleading.
+for imbalanced class problems metrics can be used which focus on the minority class.
+
+Taxonomy of classifier evaluation metrics
+there are 10's of metrics to choose from when evaluating models. 
+broadly they fall into
+Threshold metrics
+ranking metrics
+probability metrics
+
+Threshold metrics are those whivh quantify classification prediction errors
+the most widely used is classification accuracy :
+Accuracy = correct predictions/ total predictions
+Error = incorrect pred / total predictions
+
+This is widely used by is inappropriate for imbalanced classification due to high accuracy (or low error) only being achieved by a no skill model that predicts only the majority class.
+
+in imbalanced classifications, the majority class is rederred to as the negative outcome (no change, or negative test result) and the minority class is the positive outcome.
+
+Majority class : negative outcome, class 0
+minority class : positive outcome, class 1
+
+two groups of metrics that may be used in imbalanced classification are sensitivity-specificity and precision-rcall.
+
+Sensitivity-Specificity metrics
+Sensitivity refers to the true positive rate and summarizes how well the positive class was predicted
+Sensitivity = true positive / (true positive + false negative_
+
+Specificity is the complement to sensitivity and tells you how well the negative class was predicted
+Specificity = true negative / (false positive + true negatuve)
+
+For imbalanced classification sensitivity might be more interesting than specificity
+
+These can be combined into a single score which balances both and is called the Geometric Mean or G-Mean
+
+G-Mean = sqrt(Sensitivity * Specificity)
+
+Precision-Recall metrics
+Precision summarizes the fraction of examples assigned to the positive class which actually belong to the positive class
+
+Precision = True Positive / (True Positive + False Positive)
+
+Recall is how well the positive class was predicted (this is the same as snsitivity)
+Recall = True positive / (true positive + false negative)
+
+precision and recall can be combined and balanced to give the F-Measure
+
+F-Measure = (2* Precision * recall) / (Precision + recall)
+
+F-measure is popular for imbalanced classification
+F-beta measure where the balance of precision and recall is in harmonic mean where it is controlled by the coefficient of beta
+
+FBeta-Measure = ((1+beta^2 * precision * recall)/(beta^2*precision+recall))
+
+
+Additional Threshold Metrics
+Many of them. They are easy to calculate and understand. THey do however assume the class distribution in the training set will match that in the real data. Examples Kappa, Macro-Average accuracy, mean-class-weighted accuracy, optimized precision, adjusted geometric mean, balanced accuracy. 
+
+
+Ranking Metrics 
+These are more concerned with evaluating classifiers based on how effective they are at separating classes.
+They require that some classifier predicts a score or probably and from this score different thresholds can bbe applied to test the effectiveness of the classifiers.
+those models with good score across a range of thresholds have good class separation.
+
+Most commonly used ranking metric is the ROC Curve - Receiver Operating Characteristic
+This is a diagnostic plot for summarizing the behaviour of the model by calculating the false positive rate or true positive rate for a set of predictions under different thresholds
+True positive rate = True positive / (True positive + false negative)
+False Positive Rate = False positive / (false positive + true negative)
+
+Each threshold is a point on the plot and they are connected to form a curve. Classifiers with no skill (Predicts the majority class under all the thresholds) will be represented by a diagonal line. Points below the line have worse than no skill. A perfect model will be a single point at the top right of the plot.
+
+The area under the curve can be calculated and provides a single score to summarize the plot.
+No skill would have a score of 0.5, perfect would have a score of 1.0
+
+ROC AUC = ROC Area under curve.
+
+Whilse it can be effective it can be optimistic under a severe class imbalance - especially when the minority score class is small.
+
+Alternative to ROC is the precision-recall curve that can be used in a similar way. The this focuses on performance of the classifier of the minority class.
+
+Again different thresholds are used and precision and recall are calculated. The points form a curve and classifiers that perform better under a range of thresholds will be ranked higher.
+No skill line is horizontal. Balanced dataset will be 0.5 and perfect classifier is a point in top right.
+
+ROC Curve is a diagnostic toold for evaluating a single classifier but is challenging for comparing classifiers
+
+PR AUC = Precision-Recall area under curve
+
+Probabilistic metrics for imbalanced classification
+Designed to specifically quantify the uncertainty in a classifiers predictions
+
+Useful where we are less concerned with corret vs incorrect and more interested in the uncertainty in the model and penalizing predictions which are wrong but highly confident.
+
+In order to evaluate a model on predicted probabilities we have to calibrate the probabilities. Some classifiers are trained using a probabalistic framework (eg maximum likelihood estimation_ and so their probabilities are already calibrated
+
+Many non linear classifiers are not trained under probabilistic frameworks and so require probabilities are calibrated against a dataset prior to being evaluated via a probabilistic metric. These might include support vector machines and k-nearest neighbors.
+
+Most common metric for evaluating predicted probabilities is log loss for binary classification (Cross-Entropy)
+
+For a binary dataset where expected values are Y and predicted values are yhat :
+LogLoss = -((1-y)*log(1-yhat)+y*log(yhat))
+
+Generalized to multiple classes:
+LogLoss = -(sum c in C y_c * log(yhat_c))
+
+The score summarizes the average differences between two probability distributions - perfect classifier has a log loss of 0.0 with worse values being positive up to infinity.
+
+Another popular score is Brier score. 
+Brier score focusses on the positive class which for imbalanced classification is the minority class. For imbalanced ones this makes it more popular than log loss which focusses on the entire distribution.
+
+BrierScore = 1/N * Sum i to N (yhat_i-y_i)^2
+
+perfect classifier has a Brier score of 0.0 
+Differences in Brier score can be very small. In order to address this they can be scaled against a reference score from a no skill classifier.
+
+BrierSkillScore = 1 - (BrierScore / BrierScore_ref)
+
+These are popular for balanced classification problems but less widely used for skewed distributions.
+
