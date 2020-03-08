@@ -1,0 +1,59 @@
+FBeta Measure 
+
+F beta measure or score is an evaluation of a tests accuracy.
+The F1 score measures the effectiveness of the model to predict an outcome
+It is based on two things. Precision and Recall.
+Precision is how many relevant results does the model return. High precision returns more relevant results than irrelevant ones whereas Low Precision returns more irrelevant results than relevant one
+Recall is how many of the relevant results are returned by the model. High recall means more of the relevant returns were returned whereas low recall means fewer of the relevant results were returned.
+The Fbeta measure is trying to find the combination of precision and recall which will give you the best results. 
+When the Beta value in the FBeta equation is equal to 1 we have harmonic mean - This is the optimal mean. 
+The FBeta score is defined as between 0 and 1 with values closer to 1 being higher accuracy
+
+Precision and recall can be defined by looking at the confusion matrix.
+This takes the number of positive and negative results vs the positive and negative predictions  and maps them against one another
+Typically this gives 4 metrics
+True Positive - We had a positive outcome and predicted this to be positive with the model
+False positive - We had a negative outcome but the model predicted positive
+False Negative - We had a positive outcome but the model predicted negative
+True Negative  - We had a negative outcome and the model predicted negative
+
+The precision is then defined as 
+True positives/(true positives + false positives)
+
+Precision is concerned with minimising the number of false positives we get.
+
+Recall is concerned with quantifying the number of correct positive predictions made out of all the positive predictions which could have been made
+Recall is defined as 
+TruePositives / (True Positives + False Negatives) 
+This gives a result between 0 and 1 with 0 being no recall and 1 being perfect recall
+Recall is concerned with minimising False Negatives
+
+When we want to minimize false positives but false negatives are still important we emphasize Precision.
+When false negatives are important to minimize but false positives still improtant we emphasize recall.
+The f-measure balances the precision and recall.
+
+Where the balance of these is important we use the Fbeta-Measure. 
+In the Fbeta-measure the precision and recall balance is controlled by a coefficient Beta.
+The FBeta is defined as
+Fbeta = ((1+beta^2)*Precision*Recall)/(beta^2*Precision+Recall))
+The choice of the value of Beta is then used in the name. So a beta value of 2 gives the F2 score. A value of 1 the F1 score.
+
+Three common beta valus are:
+F0.5 - More weight on precision and less on recall
+emphasis on minimizing false positives 
+F1 - Balance of weight on precision and recall
+Balanced weighting of false positives and false negatives
+F2 - Less weight on precision, more weight on recall
+Emphasis on minimizing false negatives
+
+Note the F-Measure and F1 are the same thing giving you the balance of Precision and Recall
+
+
+
+The F score combines the 2 
+Fmeasure is defined as 
+(2 * Precision * Recall) / (Precision + Recall)
+
+The result is between 0 and 1  with 0 being the worse Fmeasure and 1 being the best. 
+A balance of precision and recall result in good F measure.
+
